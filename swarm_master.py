@@ -1,23 +1,19 @@
 import time
 import json
 from datetime import datetime
+from agents.firebase_connector import FirebaseConnector
+from agents.news_bot import NewsBotAgent
 
 class NasawebSwarmOrchestrator:
     def __init__(self):
         self.timestamp = datetime.now().isoformat()
-        self.firebase_logs = []
+        self.firebase = FirebaseConnector(project_id="nasaweb-leads")
 
     def log_agent_action(self, agent_name: str, status: str, payload: dict):
-        log_entry = {
-            "timestamp": self.timestamp,
-            "agent": agent_name,
-            "status": status,
-            "data": payload
-        }
-        self.firebase_logs.append(log_entry)
+        log_packet = self.firebase.push_agent_log(agent_name, status, payload)
         print(f"[{agent_name}] -> {status.upper()}: {json.dumps(payload, ensure_ascii=False)}")
 
-    # --- AGENTE 1: ReelMaster (Generación de Guiones y Estructura Visual) ---
+    # --- AGENTE 1: ReelMaster ---
     def run_reel_master(self):
         topic = "Por qué tu negocio en Cipolletti necesita una web optimizada para Google"
         script_structure = {
@@ -30,9 +26,8 @@ class NasawebSwarmOrchestrator:
     def run_tiktok_sync(self):
         self.log_agent_action("TikTokTrendSync", "published", {"platform": "TikTok", "content": "SEO local para PyMEs patagónicas"})
 
-    # --- AGENTE 3: LeadHunter Patagonia (Prospección Alto Valle) ---
+    # --- AGENTE 3: LeadHunter Patagonia ---
     def run_lead_hunter(self):
-        # Simulación de escaneo de comercios locales en Cipolletti y región
         scanned_region = "Cipolletti, Río Negro (Alto Valle)"
         prospects = [
             {"business": "Comercio de Refrigeración Local", "issue": "Sin sitio web / Dependencia total de redes", "opportunity": "Landing Page + SEO Local"},
@@ -46,8 +41,11 @@ class NasawebSwarmOrchestrator:
     def run_tech_radar(self):
         self.log_agent_action("TechStackRadar", "analyzed", {"recommendation": "MCP Local para bases de datos", "viability": "Alta"})
 
+    # --- AGENTE 6: NewsBot (Revista Cipolletti) ---
     def run_news_bot(self):
-        self.log_agent_action("NewsBot", "deployed", {"portal": "revistacipolletti.com.ar", "status": "Notas regionales sincronizadas"})
+        bot = NewsBotAgent()
+        result = bot.run_news_automation()
+        self.log_agent_action("NewsBot", "published", result)
 
     def run_ad_optimizer(self):
         self.log_agent_action("AdOptimizer", "monitored", {"campaign": "Nasaweb SEO Ads", "cpa_status": "Optimized"})
@@ -61,7 +59,7 @@ class NasawebSwarmOrchestrator:
     def run_executive_secretary(self):
         summary = (
             "Informe diario ejecutado con éxito. LeadHunter identificó oportunidades clave en comercios del Alto Valle "
-            "y ReelMaster generó la pauta de contenido visual para nasaweb.ar."
+            "y NewsBot sincronizó las notas para revistacipolletti.com.ar."
         )
         print(f"\n[Secretario Ejecutivo]: {summary}")
         return summary
