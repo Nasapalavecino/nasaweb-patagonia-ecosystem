@@ -2,23 +2,183 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nasaweb & Revista Cipolletti - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasaweb & Revista Cipolletti - Swarm Control Center</title>
     <style>
-        body { background: #090d16; color: #f8fafc; font-family: sans-serif; padding: 2rem; }
-        .card { background: rgba(30, 41, 59, 0.6); padding: 1.5rem; border-radius: 1rem; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1); }
-        h1 { margin-bottom: 1rem; font-size: 1.5rem; }
-        p { color: #94a3b8; font-size: 0.95rem; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #090d16;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+        }
+        header h1 { font-size: 2rem; color: #38bdf8; margin-bottom: 0.5rem; }
+        header p { color: #94a3b8; font-size: 1rem; max-width: 700px; margin: 0 auto; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .card h3 { font-size: 1.15rem; color: #f1f5f9; }
+        .badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem; }
+        .utility-box {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            border-left: 3px solid #38bdf8;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
-    <h1>Nasaweb & Revista Cipolletti - Dashboard</h1>
-    <div class="card">
-        <h3>LeadHunter Patagonia 🟢</h3>
-        <p>Comercios detectados en el Alto Valle: Refrigeración y Estudios Contables.</p>
+    <header>
+        <h1>Nasaweb & Revista Cipolletti - Centro de Mando</h1>
+        <p>Ecosistema de 10 Agentes Autónomos de Inteligencia Artificial operando en el Alto Valle, Río Negro.</p>
+    </header>
+
+    <div class="grid">
+        <!-- 1 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>1. ReelMaster</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Diseña ganchos de atención de 3 segundos y estructura guiones comerciales para Reels y TikTok.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Genera contenido automatizado para potenciar la marca de la agencia y atraer clientes en redes.</div>
+        </div>
+
+        <!-- 2 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>2. TikTokTrendSync</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Sincroniza las tendencias audiovisuales del momento y adapta los formatos de publicación.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Mantiene el posicionamiento digital alineado con el algoritmo actual sin esfuerzo manual.</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>3. LeadHunter Patagonia</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Escanea y detecta PyMEs y comercios locales en Cipolletti y el Alto Valle que necesitan presencia web.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Identifica oportunidades comerciales directas para ofrecer servicios de desarrollo y SEO.</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>4. EdTechCurriculums</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Estructura programas educativos y contenidos formativos para comerciantes y programas comunitarios.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Soporta iniciativas como "Tu Escuela en Portada" y capacitaciones en automatización.</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>5. TechStackRadar</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Analiza herramientas tecnológicas, scripts de Python, Git y configuraciones de Model Context Protocol (MCP).</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Asegura que la arquitectura de desarrollo local y en la nube esté siempre actualizada y optimizada.</div>
+        </div>
+
+        <!-- 6 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>6. NewsBot (Revista)</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Automatiza la sincronización de notas regionales, portales y boletines informativos.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Mantiene actualizado el flujo operativo del portal <em>revistacipolletti.com.ar</em>.</div>
+        </div>
+
+        <!-- 7 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>7. AdOptimizer</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Monitorea el rendimiento de campañas publicitarias digitales, costos por adquisición (CPA) y conversiones.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Optimiza el presupuesto publicitario de la agencia y de los clientes regionales.</div>
+        </div>
+
+        <!-- 8 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>8. ClientOnboard</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Realiza auditorías iniciales de diagnóstico web (velocidad, SSL, indexación en Google) para nuevos clientes.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Acelera el proceso de análisis técnico antes de cerrar propuestas comerciales.</div>
+        </div>
+
+        <!-- 9 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>9. DashboardCore</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Sincroniza los registros de actividad de todos los agentes y los empaqueta para visualización.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Alimenta este panel web que estás viendo con datos claros en tiempo real.</div>
+        </div>
+
+        <!-- 10 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>10. Secretario Ejecutivo</h3>
+                <span class="badge">Activo</span>
+            </div>
+            <p><strong>¿Qué hace?</strong> Consolida el resumen diario del trabajo de todo el swarm y gestiona las directivas de voz y texto.</p>
+            <div class="utility-box"><strong>Utilidad:</strong> Te entrega un reporte ejecutivo listo para revisar cada vez que el sistema termina su ciclo.</div>
+        </div>
     </div>
-    <div class="card">
-        <h3>ReelMaster 🟢</h3>
-        <p>Gancho activo: "¿Tu negocio en el Alto Valle no aparece en Google?"</p>
-    </div>
+
+    <footer>
+        Nasaweb Patagonia & Revista Cipolletti &copy; 2026 - Automatización Inteligente.
+    </footer>
 </body>
 </html>
