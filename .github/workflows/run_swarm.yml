@@ -1,0 +1,23 @@
+name: Nasaweb Swarm Daily Automation
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 09:00 UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Permite ejecutarlo manualmente con un botón cuando quieras
+
+jobs:
+  run-swarm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar entorno Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Ejecutar motor del Swarm de Agentes
+        run: |
+          python swarm_master.py
