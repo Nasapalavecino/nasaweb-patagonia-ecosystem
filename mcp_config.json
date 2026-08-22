@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "nasaweb-swarm": {
+      "command": "python",
+      "args": ["swarm_master.py"],
+      "env": {
+        "FIREBASE_PROJECT_ID": "nasaweb-patagonia-db",
+        "REGION": "Cipolletti"
+      }
+    }
+  }
+}
