@@ -15,11 +15,12 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Instalar dependencias multimedia y de red
+      - name: Instalar dependencias del sistema y Python
         run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
           python -m pip install --upgrade pip
           pip install requests moviepy
 
       - name: Ejecutar motor del Swarm de Agentes
-        run: python swarm_master.pyarm de Agentes
         run: python swarm_master.py
