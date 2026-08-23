@@ -76,7 +76,6 @@ class CloudVideoGenerator:
         print("[CloudVideoGenerator] Preparando solicitud de renderizado de video en la nube...")
         render_body = self.build_cloud_render_payload()
 
-        # En modo sandbox, devolvemos un enlace de video público y funcional para pruebas directas
         if self.api_key == "sandbox_mock_key":
             mock_video_url = "https://www.w3schools.com/html/mov_bbb.mp4"
             print(f"[CloudVideoGenerator] (Modo Sandbox) Video simulado con éxito.")
@@ -115,4 +114,4 @@ if __name__ == "__main__":
         "visual_assets": {"on_screen_kinetic_text": "Creciendo en el Alto Valle"}
     }
     generator = CloudVideoGenerator(sample_payload)
-    print(generator.request_video_render())_video_render())
+    print(generator.request_video_render())t_video_render())_video_render())
