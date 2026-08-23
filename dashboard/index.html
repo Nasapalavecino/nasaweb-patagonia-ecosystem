@@ -65,9 +65,9 @@
             margin-bottom: 0.75rem;
         }
         .details-panel {
-            background: rgba(2, 6, 23, 0.8);
+            background: rgba(2, 6, 23, 0.9);
             border: 1px dashed rgba(56, 189, 248, 0.4);
-            padding: 0.75rem;
+            padding: 1rem;
             border-radius: 8px;
             font-size: 0.8rem;
             color: #38bdf8;
@@ -85,6 +85,21 @@
             text-align: right;
             margin-top: 0.5rem;
         }
+        .btn-video {
+            display: inline-block;
+            background: #0284c7;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            transition: background 0.2s;
+        }
+        .btn-video:hover {
+            background: #0369a1;
+        }
         footer {
             text-align: center;
             margin-top: 3rem;
@@ -96,11 +111,10 @@
 <body>
     <header>
         <h1>Nasaweb & Revista Cipolletti - Centro de Mando</h1>
-        <p>Haz clic en cualquier agente para inspeccionar en tiempo real los registros y datos procesados desde Firebase.</p>
+        <p>Haz clic en cualquier agente para inspeccionar en tiempo real los registros y archivos multimedia generados.</p>
     </header>
 
     <div class="grid" id="swarm-grid">
-        <!-- Las tarjetas se generan dinámicamente con JS -->
         <div style="text-align: center; grid-column: 1 / -1; color: #94a3b8; padding: 2rem;">
             Cargando registros en tiempo real desde Firebase (`nasaweb-leads`)...
         </div>
@@ -132,7 +146,6 @@
                 let latestLogs = {};
                 if (data) {
                     Object.values(data).forEach(log => {
-                        // Guardamos el log más reciente por agente
                         latestLogs[log.agent] = log;
                     });
                 }
@@ -153,9 +166,22 @@
                 const meta = agentsMeta[agentName];
                 const log = logs[agentName] || { status: "En espera", details: "Sin actividad registrada aún en este ciclo.", timestamp: "N/A" };
                 
+                // Extraer URL de video si existe en el payload
+                let videoButtonHtml = '';
+                try {
+                    if (log.details && log.details.rendered_video_output && log.details.rendered_video_output.video_url) {
+                        const videoUrl = log.details.rendered_video_output.video_url;
+                        videoButtonHtml = `<a href="${videoUrl}" target="_blank" class="btn-video">🎬 Ver / Descargar Video MP4</a><br>`;
+                    }
+                } catch(e) {}
+
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.onclick = () => card.classList.toggle('active');
+                card.onclick = (e) => {
+                    // Evitar que colapse si hacen clic directo en el botón del video
+                    if(e.target.tagName === 'A') return;
+                    card.classList.toggle('active');
+                };
 
                 card.innerHTML = `
                     <div class="card-header">
@@ -164,10 +190,11 @@
                     </div>
                     <p><strong>¿Qué hace?</strong> ${meta.desc}</p>
                     <div class="utility-box"><strong>Utilidad:</strong> ${meta.util}</div>
-                    <div class="click-hint">🖱️ Haz clic para ver detalles en vivo</div>
+                    <div class="click-hint">🖱️ Haz clic para expandir detalles</div>
                     <div class="details-panel">
-                        <strong>Última ejecución:</strong> ${log.timestamp}<br>
-                        <strong>Payload / Datos procesados:</strong><br>
+                        <strong>Última ejecución:</strong> ${log.timestamp}<br><br>
+                        ${videoButtonHtml}
+                        <strong>Payload Completo:</strong><br>
                         <pre style="margin-top: 5px; white-space: pre-wrap;">${JSON.stringify(log.details, null, 2)}</pre>
                     </div>
                 `;
