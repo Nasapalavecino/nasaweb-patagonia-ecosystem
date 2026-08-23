@@ -114,4 +114,4 @@ if __name__ == "__main__":
         "visual_assets": {"on_screen_kinetic_text": "Creciendo en el Alto Valle"}
     }
     generator = CloudVideoGenerator(sample_payload)
-    print(generator.request_video_render())t_video_render())_video_render())
+    print(generator.request_video_render())
