@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 from agents.firebase_connector import FirebaseConnector
-from agents.cloud_video_generator import CloudVideoGenerator
 
 class ReelMasterAgent:
     def __init__(self, target_brand="nasaweb.ar"):
@@ -11,21 +10,28 @@ class ReelMasterAgent:
 
     def generate_reel_content(self, topic=None):
         if not topic:
-            topic = "SEO explicado fácil: Cómo hacer que Google recomiende tu negocio local en el Alto Valle"
+            topic = "SEO local explicado fácil: Cómo hacer que Google recomiende tu negocio en el Alto Valle"
 
         payload = {
             "agent": self.agent_name,
             "target_brand": self.target_brand,
             "timestamp": datetime.now().isoformat(),
             "topic": topic,
-            "visual_assets": {
-                "background_media_prompt": "Toma dinámica de un celular mostrando búsquedas locales en Google y comercios activos en el Alto Valle.",
-                "on_screen_kinetic_text": "¿Por qué tu competencia aparece primera en Google y vos no?"
-            },
-            "script_structure": {
-                "hook_0_3s": "¿Por qué cuando alguien busca lo que vendés en Google, el que aparece siempre es tu competencia?",
-                "value_3_20s": "Tranquilo, el SEO no es chino básico. Explicado fácil: es preparar tu sitio web para que Google entienda exactamente qué hacés y en qué zona estás, como Cipolletti o el Alto Valle. Si lo hacés bien, Google te recomienda solo y gratis a los clientes que ya te están buscando con la billetera en la mano.",
-                "cta_20_30s": "Entra a nasaweb.ar, agendá una asesoría y pongamos tu negocio en la primera página."
+            "production_sheet": {
+                "format": "Reel / TikTok Vertical (9:16)",
+                "estimated_duration": "30 segundos",
+                "hook_0_3s": {
+                    "visual": "Primer plano dinámico, señalando a la pantalla con texto cinético grande.",
+                    "spoken_text": "¿Por qué cuando alguien busca lo que vendés en Google, el que aparece siempre es tu competencia?"
+                },
+                "value_3_20s": {
+                    "visual": "B-roll rápido de la pantalla del celular mostrando mapas y resultados de búsqueda local en Cipolletti y el Alto Valle.",
+                    "spoken_text": "Tranquilo, el SEO no es chino básico. Explicado fácil: es preparar tu sitio web para que Google entienda exactamente qué hacés y en qué zona estás. Si lo hacés bien, Google te recomienda solo y gratis a los clientes que ya te están buscando con la billetera en la mano."
+                },
+                "cta_20_30s": {
+                    "visual": "Pantalla final con branding de Nasaweb y URL limpia.",
+                    "spoken_text": "Entra a nasaweb.ar, agendá una asesoría y pongamos tu negocio en la primera página."
+                }
             },
             "caption_and_seo": {
                 "instagram_caption": "El posicionamiento SEO no tiene por qué ser un misterio técnico. Si tenés un comercio o PyME en la Patagonia, aparecer en Google de forma orgánica es la clave para recibir consultas todos los días sin depender de la suerte. 🚀 Escribinos o entrá a nasaweb.ar para potenciar tu visibilidad.",
@@ -43,22 +49,16 @@ class ReelMasterAgent:
         return payload
 
     def run_reel_automation(self):
-        print(f"[{self.agent_name}] Iniciando producción agéntica de contenido para {self.target_brand}...")
+        print(f"[{self.agent_name}] Iniciando producción de guion comercial para {self.target_brand}...")
         payload = self.generate_reel_content()
         
-        # Invocar al generador en la nube
-        video_gen = CloudVideoGenerator(payload)
-        render_result = video_gen.request_video_render()
-        
-        payload["rendered_video_output"] = render_result
-
-        # Sincronización automática con Firebase
+        # Sincronización automática de la hoja de producción con Firebase
         self.firebase.push_agent_log(
             agent_name=self.agent_name,
-            status="success",
+            status="ready_to_record",
             payload=payload
         )
-        print(f"[{self.agent_name}] Guion de SEO sencillo y sincronización completados con éxito.")
+        print(f"[{self.agent_name}] Guion comercial optimizado y sincronizado en Firebase con éxito.")
         return payload
 
 if __name__ == "__main__":
