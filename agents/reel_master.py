@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from agents.firebase_connector import FirebaseConnector
+from agents.media_renderer import MediaRenderer
 
 class ReelMasterAgent:
     def __init__(self, target_brand="nasaweb.ar"):
@@ -47,14 +48,20 @@ class ReelMasterAgent:
     def run_reel_automation(self):
         print(f"[{self.agent_name}] Iniciando producción agéntica de contenido para {self.target_brand}...")
         payload = self.generate_reel_content()
+        
+        # Invocar al motor de renderizado para compilar la especificación del Storyboard
+        renderer = MediaRenderer(payload)
+        renderer.render_storyboard_spec()
+
+        # Sincronización automática de datos estructurados con Firebase
         self.firebase.push_agent_log(
             agent_name=self.agent_name,
             status="success",
             payload=payload
         )
-        print(f"[{self.agent_name}] Paquete audiovisual estructurado y sincronizado en Firebase con éxito.")
+        print(f"[{self.agent_name}] Paquete audiovisual estructurado, renderizado y sincronizado en Firebase con éxito.")
         return payload
 
 if __name__ == "__main__":
     agent = ReelMasterAgent()
-    agent.run_reel_automation()
+    agent.run_reel_automation()utomation()
