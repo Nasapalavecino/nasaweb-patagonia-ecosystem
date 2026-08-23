@@ -6,9 +6,8 @@ from datetime import datetime
 class CloudVideoGenerator:
     def __init__(self, reel_payload: dict):
         self.payload = reel_payload
-        # Aquí puedes configurar tu API Key de servicios como Shotstack o similar
         self.api_key = os.environ.get("VIDEO_RENDER_API_KEY", "sandbox_mock_key")
-        self.api_url = "https://api.shotstack.io/edit/v1/render" # Endpoint de renderizado en nube (ejemplo profesional)
+        self.api_url = "https://api.shotstack.io/edit/v1/render"
 
     def build_cloud_render_payload(self):
         """
@@ -18,11 +17,10 @@ class CloudVideoGenerator:
         assets = self.payload.get("visual_assets", {})
         brand = self.payload.get("target_brand", "nasaweb.ar")
 
-        # Estructura optimizada para la API de video
         render_spec = {
             "timeline": {
                 "soundtrack": {
-                    "src": "https://freesound.org/data/previews/538/538466_11861866-lq.mp3", # Pista de fondo comercial libre
+                    "src": "https://freesound.org/data/previews/538/538466_11861866-lq.mp3",
                     "effect": "fadeInFadeOut",
                     "volume": 0.2
                 },
@@ -68,7 +66,7 @@ class CloudVideoGenerator:
             },
             "output": {
                 "format": "mp4",
-                "resolution": "sd", # Cambiar a 'hd' para producción final vertical 9:16
+                "resolution": "sd",
                 "aspectRatio": "9:16"
             }
         }
@@ -78,17 +76,16 @@ class CloudVideoGenerator:
         print("[CloudVideoGenerator] Preparando solicitud de renderizado de video en la nube...")
         render_body = self.build_cloud_render_payload()
 
-        # Si estás en modo prueba sin API Key real, simulamos la respuesta con éxito
+        # En modo sandbox, devolvemos un enlace de video público y funcional para pruebas directas
         if self.api_key == "sandbox_mock_key":
-            mock_video_url = "https://cdn.nasaweb.ar/outputs/reel_patagonia_mock_generated.mp4"
-            print(f"[CloudVideoGenerator] (Modo Sandbox) Video renderizado con éxito.")
+            mock_video_url = "https://www.w3schools.com/html/mov_bbb.mp4"
+            print(f"[CloudVideoGenerator] (Modo Sandbox) Video simulado con éxito.")
             return {
                 "status": "rendered",
                 "video_url": mock_video_url,
                 "render_timestamp": datetime.now().isoformat()
             }
 
-        # Conexión real con la API de renderizado
         headers = {
             "x-api-key": self.api_key,
             "Content-Type": "application/json"
@@ -118,4 +115,4 @@ if __name__ == "__main__":
         "visual_assets": {"on_screen_kinetic_text": "Creciendo en el Alto Valle"}
     }
     generator = CloudVideoGenerator(sample_payload)
-    print(generator.request_video_render())
+    print(generator.request_video_render())_video_render())
