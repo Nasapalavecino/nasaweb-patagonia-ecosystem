@@ -11,10 +11,7 @@ class ReelMasterAgent:
 
     def generate_reel_content(self, topic=None):
         if not topic:
-            if "nasaweb" in self.target_brand:
-                topic = "Posicionamiento web y automatización comercial para PyMEs del Alto Valle"
-            else:
-                topic = "Agenda de desarrollo urbano e innovación en Cipolletti"
+            topic = "SEO explicado fácil: Cómo hacer que Google recomiende tu negocio local en el Alto Valle"
 
         payload = {
             "agent": self.agent_name,
@@ -22,24 +19,24 @@ class ReelMasterAgent:
             "timestamp": datetime.now().isoformat(),
             "topic": topic,
             "visual_assets": {
-                "background_media_prompt": "Toma dinámica en loop de comercios y paisajes urbanos del Alto Valle con interfaces digitales flotantes y métricas de conversión SEO.",
-                "on_screen_kinetic_text": "¿Tu negocio en el Alto Valle sigue sin aparecer en Google?"
+                "background_media_prompt": "Toma dinámica de un celular mostrando búsquedas locales en Google y comercios activos en el Alto Valle.",
+                "on_screen_kinetic_text": "¿Por qué tu competencia aparece primera en Google y vos no?"
             },
             "script_structure": {
-                "hook_0_3s": "Estás perdiendo clientes todos los días si tu comercio local no cuenta con una estructura web optimizada.",
-                "value_3_20s": "En Nasaweb implementamos ecosistemas digitales y automatizaciones con IA que capturan prospectos las 24 horas, permitiéndote escalar sin depender exclusivamente de redes sociales.",
-                "cta_20_30s": "Entra a nasaweb.ar, agenda tu asesoría estratégica y lleva tu marca al siguiente nivel hoy."
+                "hook_0_3s": "¿Por qué cuando alguien busca lo que vendés en Google, el que aparece siempre es tu competencia?",
+                "value_3_20s": "Tranquilo, el SEO no es chino básico. Explicado fácil: es preparar tu sitio web para que Google entienda exactamente qué hacés y en qué zona estás, como Cipolletti o el Alto Valle. Si lo hacés bien, Google te recomienda solo y gratis a los clientes que ya te están buscando con la billetera en la mano.",
+                "cta_20_30s": "Entra a nasaweb.ar, agendá una asesoría y pongamos tu negocio en la primera página."
             },
             "caption_and_seo": {
-                "instagram_caption": "El mercado digital en la Patagonia evoluciona de forma constante. Automatiza tus procesos de captación y asegura visibilidad permanente para tu PyME. 🚀",
+                "instagram_caption": "El posicionamiento SEO no tiene por qué ser un misterio técnico. Si tenés un comercio o PyME en la Patagonia, aparecer en Google de forma orgánica es la clave para recibir consultas todos los días sin depender de la suerte. 🚀 Escribinos o entrá a nasaweb.ar para potenciar tu visibilidad.",
                 "hashtags": [
                     "#Cipolletti",
                     "#AltoValle",
                     "#RioNegro",
                     "#Nasaweb",
-                    "#MarketingDigital",
+                    "#SEOlocal",
                     "#PyMEsPatagonia",
-                    "#DesarrolloWeb"
+                    "#MarketingDigital"
                 ]
             }
         }
@@ -49,11 +46,10 @@ class ReelMasterAgent:
         print(f"[{self.agent_name}] Iniciando producción agéntica de contenido para {self.target_brand}...")
         payload = self.generate_reel_content()
         
-        # Invocar al generador de video en la nube para obtener el MP4
+        # Invocar al generador en la nube
         video_gen = CloudVideoGenerator(payload)
         render_result = video_gen.request_video_render()
         
-        # Adjuntar el enlace del video generado al payload que viaja a Firebase
         payload["rendered_video_output"] = render_result
 
         # Sincronización automática con Firebase
@@ -62,7 +58,7 @@ class ReelMasterAgent:
             status="success",
             payload=payload
         )
-        print(f"[{self.agent_name}] Paquete audiovisual, renderizado MP4 y sincronización completados.")
+        print(f"[{self.agent_name}] Guion de SEO sencillo y sincronización completados con éxito.")
         return payload
 
 if __name__ == "__main__":
